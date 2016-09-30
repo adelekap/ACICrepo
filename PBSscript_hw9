@@ -8,7 +8,7 @@
 
 #PBS -W group_list=ericlyons
 
-#PBS -q standard
+#PBS -q windfall
 
 #PBS -l jobtype=serial
 
