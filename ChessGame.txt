@@ -1,0 +1,152 @@
+
+  /*************************************************************************************
+ *  Long Shot Test Scene  (Chesssets version 1.2)
+ *
+ *  File: test_long_shot.pov
+ *
+ *  Author: James Garner ( jkgarner@charter.com )
+ *  Copyright Mar 2001, July 2002
+ *
+ *
+ *************************************************************************************
+ *
+ *  LEGAL NOTICE:
+ *
+ *  You may use this file to generate ur scenes.
+ *  Please remember to give credit where credit is due; to not do so is both
+ *  illeagal and immoral.  I have extensivly borrowed from other users and expect to
+ *  be borrowed from, but credit is expected where deserved.
+ *
+ *  You may modify this file or any others included.  Remeber before doing so,
+ *  I do not guarentee these files will work on u machine, nor cause undesired
+ *  consuquences. (Use at ur own risk.) I can not guarentee any modifications u
+ *  choose to make.
+ *  
+ *  If u choose to modify or add to this work, please do the following:
+ *  1. document what u did (why and how would be apprecieated by the next guy)
+ *  2. please let me know what u have done (send u new source)
+ *  3. leave this notice intact   
+ *
+ ************************************************************************************
+ *
+ *  The Purpose of this file is to test the ChessSets include file and to provide
+ *  an example of how to incorperate a chess set into ur scene using these macros.
+ *
+ *  When rendered, this file will produce a stone slab floating in the air upon
+ *  which are three defferent chess sets, ready for play.
+ *
+ *  Pick ur poison!
+ *
+ *  This file uses pieces created for use with povrey by
+ *  Ted Fisher, Ville Saari and Peter Jones.
+ *
+ *  Further acknowledgements are given in the respective Chess_Piece include files.
+ *
+ ***********************************************************************************/
+
+#include "colors.inc"
+#include "textures.inc"
+#include "stones.inc"        
+#include "skies.inc"
+#include "chesssets.inc"
+
+global_settings { assumed_gamma 2.2 } 
+
+
+camera{
+    location<-5,20,-15>
+    look_at <0,0,0>
+}
+
+background { color rgb <0,0,0> }
+
+
+light_source{
+<67.65, 150.01, -82.35> rgb<1,1,1> }  //high angle...black's right shoulder
+
+
+
+sphere { <0,-17,0>, 10000  
+  texture {
+    pigment { SkyBlue }
+    finish { ambient 1 diffuse 0}
+   }
+   texture {
+     pigment {
+       bozo
+       turbulence .5
+       color_map {
+         [0 White]
+         [1 White filter 1]
+       }
+     }
+     finish { ambient 1 diffuse 0 }
+     scale <10000, 2500, 2500>
+     rotate <5, 45, 0>
+  }
+  hollow
+}
+
+cylinder {
+  <0, 0, 0>,    // Center of one end
+  <0,-3, 0>,     // Center of other end
+  6            // Radius
+  texture { 
+    pigment{White_Marble}  
+      finish{phong .5 phong_size 20 reflection .25}
+      rotate<0,-30,0>
+  }
+  scale<5,1,1.4> 
+}
+
+
+//the textures i will use in the scenes
+#declare BlackPlastic = texture{pigment{rgb<0.05,0.05,0.05>}finish{phong .9 phong_size 45 ambient .735 diffuse.2 }} //ambient added because low light level
+#declare WhitePlastic = texture{pigment{rgb<1,1,.95>} finish{phong .9 phong_size 45 ambient .735 diffuse.2 }}//ambient added because low light level
+
+
+
+union {
+  UsePetersPieces()  //from chess piece include file
+  ChessBoardWithProperties(
+    WhitePlastic,
+    BlackPlastic,
+    WhitePlastic,
+    BlackPlastic,
+    BlackPlastic,
+    1,
+    15,
+    UltraThinFrame(15)
+  )
+
+  WhiteKnightAt(G7)
+  WhiteBishopAt(E7)
+  WhiteQueenAt(E3)
+  WhiteKingAt(E2)
+  WhiteKnightAt(D5)
+  WhitePawnAt(A2)
+  WhitePawnAt(C2)
+  WhitePawnAt(D2)
+  WhitePawnAt(E5)
+  WhitePawnAt(H5)
+  
+  BlackPawnAt(A7)
+  BlackPawnAt(B5)
+  BlackPawnAt(D7)
+  BlackPawnAt(F7)
+  BlackPawnAt(H7)
+  BlackRookAt(A8)
+  BlackKnightAt(A6)
+  BlackBishopAt(C8)
+  BlackQueenAt(A1)
+  BlackKingAt(D8)
+  BlackBishopAt(G1)
+  BlackKnightAt(F6)
+  BlackRookAt(H8)
+
+}
+
+
+
+
+  
